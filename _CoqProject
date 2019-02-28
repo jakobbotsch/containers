@@ -40,4 +40,3 @@ theories/SetConstructs.v
 tests/BenchMarks.v
 tests/TestSet.v
 tests/TestMap.v
-tests/TestGenerate.v
