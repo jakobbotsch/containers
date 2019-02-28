@@ -45,13 +45,13 @@ Module SetAVL.
     Notation t := tree.
 
     (** * Basic functions on trees: height and cardinal *)
-    Definition height (s : tree) :  int :=
+    Definition height (s : t) :  int :=
       match s with
         | Leaf => 0
         | Node _ _ _ h => h
       end.
 
-    Fixpoint cardinal (s : tree) : nat :=
+    Fixpoint cardinal (s : t) : nat :=
       match s with
         | Leaf => 0%nat
         | Node l _ r _ => S (cardinal l + cardinal r)
@@ -62,7 +62,7 @@ Module SetAVL.
 
     (** * Emptyness test *)
 
-    Definition is_empty s :=
+    Definition is_empty (s : t) :=
       match s with Leaf => true | _ => false end.
 
     (** * Appartness *)
@@ -70,7 +70,7 @@ Module SetAVL.
     (** The [mem] function is deciding appartness. It exploits the
        binary search tree invariant to achieve logarithmic complexity. *)
 
-    Fixpoint mem x s :=
+    Fixpoint mem x (s : t) :=
       match s with
         |  Leaf => false
         |  Node l y r _ =>
@@ -210,7 +210,7 @@ Module SetAVL.
 
     (** * Minimum element *)
 
-    Fixpoint min_elt s :=
+    Fixpoint min_elt (s : tree) :=
       match s with
         | Leaf => None
         | Node Leaf y _  _ => Some y
@@ -218,7 +218,7 @@ Module SetAVL.
       end.
 
     (** * Maximum element *)
-    Fixpoint max_elt s :=
+    Fixpoint max_elt (s : tree) :=
       match s with
         | Leaf => None
         | Node _ y Leaf  _ => Some y
@@ -270,7 +270,7 @@ Module SetAVL.
 
     (** * Intersection *)
 
-    Fixpoint inter s1 s2 :=
+    Fixpoint inter (s1 s2 : t) :=
       match s1, s2 with
         | Leaf, _ => Leaf
         | _, Leaf => Leaf
@@ -330,7 +330,7 @@ Module SetAVL.
 
     (** * Filter *)
 
-    Fixpoint filter_acc (f:elt->bool) acc s :=
+    Fixpoint filter_acc (f:elt->bool) acc (s : t) :=
       match s with
         | Leaf => acc
         | Node l x r h =>
@@ -356,13 +356,13 @@ Module SetAVL.
 
     (** * [for_all] and [exists] *)
     Import Bool.
-    Fixpoint for_all (f:elt->bool) s :=
+    Fixpoint for_all (f:elt->bool) (s : t) :=
       match s with
         | Leaf => true
         | Node l x r _ => f x &&& for_all f l &&& for_all f r
       end.
 
-    Fixpoint exists_ (f:elt->bool) s :=
+    Fixpoint exists_ (f:elt->bool) (s : t) :=
       match s with
         | Leaf => false
         | Node l x r _ => f x ||| exists_ f l ||| exists_ f r
@@ -419,7 +419,7 @@ Module SetAVL.
           end
       end.
 
-    Fixpoint subset s1 s2 : bool :=
+    Fixpoint subset (s1 s2 : t) : bool :=
       match s1, s2 with
         | Leaf, _ => true
         | Node _ _ _ _, Leaf => false
@@ -472,7 +472,7 @@ Module SetAVL.
 
     (** Comparison of left tree, middle element, then right tree *)
 
-    Fixpoint compare_cont s1 (cont:enumeration->comparison) e2 :=
+    Fixpoint compare_cont (s1 : t) (cont:enumeration->comparison) e2 :=
       match s1 with
         | Leaf => cont e2
         | Node l1 x1 r1 _ =>

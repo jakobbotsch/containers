@@ -29,11 +29,11 @@ Next Obligation.
 Qed.
 
 (** ** [nat] *)
-Instance nat_StrictOrder : StrictOrder lt (@eq nat) := {
-  StrictOrder_Transitive := lt_trans
+Program Instance nat_StrictOrder : StrictOrder lt (@eq nat) := {
+  StrictOrder_Transitive := lt_trans;
 }.
-Proof.
-  intros x y H abs; rewrite abs in H; exact (lt_irrefl y H).
+Next Obligation.
+  intros abs; rewrite abs in H; exact (lt_irrefl y H).
 Qed.
 
 Fixpoint nat_compare (n m : nat) :=
@@ -76,12 +76,12 @@ Qed.
 
 (** ** [N] *)
 Require Import NArith Ndec.
-Instance N_StrictOrder :
+Program Instance N_StrictOrder :
   StrictOrder (fun p q => Nleb q p = false) (@eq N) := {
   StrictOrder_Transitive := Nltb_trans
 }.
-Proof.
-  intros x y H abs; rewrite abs in H; rewrite Nleb_refl in H; discriminate.
+Next Obligation.
+  intros abs; rewrite abs in H; rewrite Nleb_refl in H; discriminate.
 Qed.
 Program Instance N_OrderedType : UsualOrderedType N := {
   SOT_lt := fun p q => Nleb q p = false;
@@ -101,11 +101,11 @@ Next Obligation.
 Qed.
 
 (** ** [positive] *)
-Instance positive_StrictOrder : StrictOrder Pos.lt (@eq positive) := {
+Program Instance positive_StrictOrder : StrictOrder Pos.lt (@eq positive) := {
   StrictOrder_Transitive := Pos.lt_trans
 }.
-Proof.
-  intros x y H abs; rewrite abs in H; exact (Pos.lt_irrefl y H).
+Next Obligation.
+  intros abs; rewrite abs in H; exact (Pos.lt_irrefl y H).
 Qed.
 Program Instance positive_OrderedType : UsualOrderedType positive := {
   SOT_lt := Pos.lt;
