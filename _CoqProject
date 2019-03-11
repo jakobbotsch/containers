@@ -1,12 +1,4 @@
--I src
 -R theories Containers
-
-CAMLP4OPTIONS = "-loc loc"
-src/printing.ml
-src/printing.mli
-src/generate.mlg
-src/containers_plugin_mod.ml
-src/containers_plugin.mllib
 
 theories/OrderedType.v
 theories/Tactics.v
@@ -34,7 +26,6 @@ theories/MapPositiveInstance.v
 theories/CMapPositive.v
 theories/CMapPositiveInstance.v
 theories/Maps.v
-theories/Generate.v
 theories/SetConstructs.v
 
 tests/BenchMarks.v
